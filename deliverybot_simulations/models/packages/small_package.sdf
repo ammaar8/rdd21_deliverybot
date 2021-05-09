@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+    <model name="small_package">
+        <pose>0 0 0 0 0 0</pose>
+        <link name="small_package">
+            <inertial>
+                <mass>1</mass>
+                <ixx>0.00053</ixx>
+                <ixy>0.0</ixy>
+                <ixz>0.0</ixz>
+                <iyy>0.00053</iyy>
+                <iyz>0.0</iyz>
+                <izz>0.000853</izz>
+            </inertial>
+            <visual name="visual">
+                <geometry>
+                    <mesh>
+                        <uri>model://packages/small_package.dae</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+            <collision name="collision">
+                <geometry>
+                    <mesh>
+                        <uri>model://packages/small_package.dae</uri>
+                    </mesh>                
+                </geometry>
+            </collision>
+        </link>
+    </model>
+</sdf>

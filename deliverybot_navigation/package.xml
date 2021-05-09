@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>deliverybot_navigation</name>
+  <version>1.0.0</version>
+  <description>The deliverybot_navigation package</description>
+
+  <maintainer email="asketch8@gmail.com">Ammaar Solkar</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>deliverybot_control</build_depend>
+  <depend>tf2</depend>
+  <build_export_depend>deliverybot</build_export_depend>
+  <build_export_depend>deliverybot_control</build_export_depend>
+  <exec_depend>deliverybot_control</exec_depend>
+  <exec_depend>message_generation</exec_depend>
+  <depend>message_runtime</depend>
+  <depend>actionlib_msgs</depend>
+
+</package>

@@ -1,0 +1,3 @@
+<launch>
+    <node name="navigation_map_server" pkg="deliverybot_navigation" type="navigation_map_server.py" />
+</launch>

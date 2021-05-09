@@ -1,0 +1,5 @@
+<launch>
+    <node name="elevator_hw_controller" pkg="elevator_controls" type="elevator_hw_controller.py"
+        respawn="false" output="screen">
+    </node>
+</launch>

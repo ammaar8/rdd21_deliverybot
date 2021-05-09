@@ -1,0 +1,15 @@
+global_costmap:
+  global_frame: map
+  robot_base_frame: dbot/base_link
+
+  update_frequency: 1.0
+  publish_frequency: 2.0
+  transform_tolerance: 0.5
+
+  static_map: true
+  height: 50
+  widht: 50
+
+  plugins:
+    - {name: static_layer, type: "costmap_2d::StaticLayer"}
+    - {name: inflated_layer, type: "costmap_2d::InflationLayer"}

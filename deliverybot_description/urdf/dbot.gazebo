@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+
+<robot>
+	<gazebo reference="right_wheel">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+	</gazebo>
+
+	<gazebo reference="left_wheel">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+	</gazebo>
+
+	<gazebo reference="castor">
+		<mu1 value="0.0"/>
+		<mu2 value="0.0"/>
+	</gazebo>
+
+	<gazebo reference="door">
+		<mu1 value="0.0"/>
+		<mu2 value="0.0"/>
+	</gazebo>
+	
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+		</plugin>
+	</gazebo>
+
+
+	<transmission name="tran_door">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_door">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_door">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="tran_pusher">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_pusher">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_pusher">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<gazebo>
+		<plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+			<legacyMode>false</legacyMode>
+			<alwaysOn>true</alwaysOn>
+			<updateRate>30</updateRate>
+			<leftJoint>joint_left_wheel</leftJoint>
+			<rightJoint>joint_right_wheel</rightJoint>
+			<wheelSeparation>0.31</wheelSeparation>
+			<wheelDiameter>0.2</wheelDiameter>
+			<wheelTorque>10</wheelTorque>
+			<wheelAcceleration>1</wheelAcceleration>
+			<commandTopic>cmd_vel</commandTopic>
+			<odometryTopic>odom</odometryTopic>
+			<odometryFrame>odom</odometryFrame>
+			<odometrySource>world</odometrySource>
+			<robotBaseFrame>base_link</robotBaseFrame>
+			<publishWheelTF>true</publishWheelTF>
+			<publishOdomTF>true</publishOdomTF>
+			<publishTf>true</publishTf>
+			<publishWheelJointState>false</publishWheelJointState>
+		</plugin>
+	</gazebo>
+
+<!-- Lidar -->
+
+	<gazebo reference="sensor_laser">
+		<sensor type="ray" name="head_hokuyo_sensor">
+			<pose>0 0 0 0 0 0</pose>
+			<visualize>false</visualize>
+			<update_rate>20</update_rate>
+			<ray>
+				<scan>
+				<horizontal>
+					<samples>360</samples>
+					<resolution>1</resolution>
+					<min_angle>0</min_angle>
+					<max_angle>3.1412</max_angle>
+				</horizontal>
+				</scan>
+				<range>
+				<min>0.1</min>
+				<max>10.0</max>
+				<resolution>0.01</resolution>
+				</range>
+				<noise>
+				<type>gaussian</type>
+				<mean>0.0</mean>
+				<stddev>0.01</stddev>
+				</noise>
+			</ray>
+			<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+				<topicName>scan</topicName>
+				<frameName>sensor_laser</frameName>
+			</plugin>
+		</sensor>
+
+  	</gazebo>
+
+
+<!-- Kinect -->
+
+	<gazebo reference="kinect">
+		<sensor name="kinect_camera" type="depth">
+			<update_rate>10.0</update_rate>
+			<camera>
+			<horizontal_fov>1.047198</horizontal_fov>
+			<image>
+				<width>640</width>
+				<height>480</height>
+				<format>R8G8B8</format>
+			</image>
+			<clip>
+				<near>0.05</near>
+				<far>5</far>
+			</clip>
+			</camera>
+			<plugin name="kinect_controller" filename="libgazebo_ros_openni_kinect.so">
+				<baseline>0.2</baseline>
+				<alwaysOn>true</alwaysOn>
+				<updateRate>10.0</updateRate>
+				<cameraName>kinect_ir</cameraName>
+				<imageTopicName>kinect/color/image_raw</imageTopicName>
+				<cameraInfoTopicName>kinect/color/camera_info</cameraInfoTopicName>
+				<depthImageTopicName>kinect/depth/image_raw</depthImageTopicName>
+				<depthImageInfoTopicName>kinect/depth/camera_info</depthImageInfoTopicName>
+				<pointCloudTopicName>kinect/depth/points</pointCloudTopicName>
+				<frameName>kinect_frame_optical</frameName>
+				<pointCloudCutoff>0.5</pointCloudCutoff>
+				<pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+				<distortionK1>0.00000001</distortionK1>
+				<distortionK2>0.00000001</distortionK2>
+				<distortionK3>0.00000001</distortionK3>
+				<distortionT1>0.00000001</distortionT1>
+				<distortionT2>0.00000001</distortionT2>
+				<CxPrime>0</CxPrime>
+				<Cx>0</Cx>
+				<Cy>0</Cy>
+				<focalLength>0</focalLength>
+				<hackBaseline>0</hackBaseline>
+			</plugin>
+		</sensor>
+	</gazebo>
+
+<!-- Upper Camera -->
+	<gazebo reference="upper_camera_link">
+		<sensor type="camera" name="upper_camera">
+		<update_rate>30.0</update_rate>
+		<camera name="upper">
+			<horizontal_fov>1.3962634</horizontal_fov>
+			<image>
+				<width>800</width>
+				<height>800</height>
+				<format>R8G8B8</format>
+			</image>
+			<clip>
+				<near>0.02</near>
+				<far>300</far>
+			</clip>
+			<noise>
+				<type>gaussian</type>
+				<!-- Noise is sampled independently per pixel on each frame.
+					That pixel's noise value is added to each of its color
+					channels, which at that point lie in the range [0,1]. -->
+				<mean>0.0</mean>
+				<stddev>0.007</stddev>
+			</noise>
+		</camera>
+		<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+			<alwaysOn>true</alwaysOn>
+			<updateRate>0.0</updateRate>
+			<cameraName>upper_camera</cameraName>
+			<imageTopicName>upper_camera_image</imageTopicName>
+			<cameraInfoTopicName>/dbot/upper_camera/camera_info</cameraInfoTopicName>
+			<frameName>upper_camera_link</frameName>
+			<hackBaseline>0.07</hackBaseline>
+			<distortionK1>0.0</distortionK1>
+			<distortionK2>0.0</distortionK2>
+			<distortionK3>0.0</distortionK3>
+			<distortionT1>0.0</distortionT1>
+			<distortionT2>0.0</distortionT2>
+		</plugin>
+		</sensor>
+	</gazebo>
+<!-- Upper Camera -->
+
+<!-- Right Camera -->
+	<gazebo reference="right_camera_link">
+		<sensor type="camera" name="right_camera">
+		<update_rate>30.0</update_rate>
+		<camera name="right">
+			<horizontal_fov>1.3962634</horizontal_fov>
+			<image>
+				<width>800</width>
+				<height>800</height>
+				<format>R8G8B8</format>
+			</image>
+			<clip>
+				<near>0.02</near>
+				<far>300</far>
+			</clip>
+			<noise>
+				<type>gaussian</type>
+				<!-- Noise is sampled independently per pixel on each frame.
+					That pixel's noise value is added to each of its color
+					channels, which at that point lie in the range [0,1]. -->
+				<mean>0.0</mean>
+				<stddev>0.007</stddev>
+			</noise>
+		</camera>
+		<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+			<alwaysOn>true</alwaysOn>
+			<updateRate>0.0</updateRate>
+			<cameraName>right_camera</cameraName>
+			<imageTopicName>right_camera_image</imageTopicName>
+			<cameraInfoTopicName>/dbot/right_camera/camera_info</cameraInfoTopicName>
+			<frameName>right_camera_link</frameName>
+			<hackBaseline>0.07</hackBaseline>
+			<distortionK1>0.0</distortionK1>
+			<distortionK2>0.0</distortionK2>
+			<distortionK3>0.0</distortionK3>
+			<distortionT1>0.0</distortionT1>
+			<distortionT2>0.0</distortionT2>
+		</plugin>
+		</sensor>
+	</gazebo>
+
+<!-- Right Camera -->
+
+<!-- Left Camera -->
+	<gazebo reference="left_camera_link">
+		<sensor type="camera" name="left_camera">
+		<update_rate>30.0</update_rate>
+		<camera name="left">
+			<horizontal_fov>1.3962634</horizontal_fov>
+			<image>
+				<width>800</width>
+				<height>800</height>
+				<format>R8G8B8</format>
+			</image>
+			<clip>
+				<near>0.02</near>
+				<far>300</far>
+			</clip>
+			<noise>
+				<type>gaussian</type>
+				<!-- Noise is sampled independently per pixel on each frame.
+					That pixel's noise value is added to each of its color
+					channels, which at that point lie in the range [0,1]. -->
+				<mean>0.0</mean>
+				<stddev>0.007</stddev>
+			</noise>
+		</camera>
+		<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+			<alwaysOn>true</alwaysOn>
+			<updateRate>0.0</updateRate>
+			<cameraName>left_camera</cameraName>
+			<imageTopicName>left_camera_image</imageTopicName>
+			<cameraInfoTopicName>/dbot/left_camera/camera_info</cameraInfoTopicName>
+			<frameName>left_camera_link</frameName>
+			<hackBaseline>0.07</hackBaseline>
+			<distortionK1>0.0</distortionK1>
+			<distortionK2>0.0</distortionK2>
+			<distortionK3>0.0</distortionK3>
+			<distortionT1>0.0</distortionT1>
+			<distortionT2>0.0</distortionT2>
+		</plugin>
+		</sensor>
+	</gazebo>
+
+<!-- Left Camera -->
+
+</robot>

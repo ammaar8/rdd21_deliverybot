@@ -1,0 +1,7 @@
+<launch>
+    <node name="gmapping" pkg="gmapping" type="slam_gmapping">
+        <remap from="scan" to="/dbot/scan" />
+        <param name="odom_frame" value="/dbot/odom" />
+        <param name="base_frame" value="/dbot/base_link" />
+    </node>
+</launch>

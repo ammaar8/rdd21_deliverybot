@@ -1,0 +1,3 @@
+<launch>
+    <node name="elevator_hw_gui" pkg="elevator_gui" type="elevator_hw_gui.py"></node>
+</launch>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<launch>
+    // world
+    <param name="/use_sim_time" value="true"/>
+    <arg name="gui" default="true" />
+
+    <group if="$(arg gui)">
+        <node name="gazebo" pkg="gazebo_ros" type="gazebo" args="-u $(find deliverybot_simulations)/worlds/inferno.world" />
+    </group>
+
+    <group unless="$(arg gui)">
+        <node name="gazebo" pkg="gazebo_ros" type="gzserver" args="$(find deliverybot_simulations)/worlds/inferno.world" />
+    </group>
+
+
+    <group ns="elevator">
+        <param name="tf_prefix" value="elevator" />
+        <!-- Spawn Elevator Model -->
+        <arg name="x" default="0"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="0"/>    
+        <param name="robot_description" command="$(find xacro)/xacro '$(find elevator_description)/models/building_elevator/elevator.urdf'"/>
+        <node name="elevator_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model elevator -x $(arg x) -y $(arg y) -z $(arg z)"/>
+
+        <!-- Start Elevator Control -->
+        <rosparam file="$(find elevator_controls)/config/elevator_control.yaml" command="load" />
+        <node name="elevator_controller_spawn" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+            args= "
+                floor_position_controller
+                car_door_left_controller
+                car_door_right_controller
+                lobby_door_left_controller
+                lobby_door_right_controller
+                first_door_left_controller
+                first_door_right_controller
+                second_door_left_controller
+                second_door_right_controller
+                elevator_state_controller
+                " />
+	    <node name="elevator_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+        <node name="elevator_hw_controller" pkg="elevator_controls" type="elevator_hw_controller.py" />
+    </group>
+
+    <group ns="dbot">
+        // dbot
+        <param name="tf_prefix" value="dbot" />
+        <arg name="x" default="9.0"/>
+        <arg name="y" default="-17.5"/>
+        <arg name="z" default="0.5"/>
+        <param name="robot_description" command="$(find xacro)/xacro '$(find deliverybot_description)/urdf/dbot.xacro'"/>
+        
+        // dbot control
+        <rosparam file="$(find deliverybot_control)/config/deliverybot_control.yaml" command="load"/>
+        <node name="robot_controller_spawn" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+            args="
+                door_position_controller
+                pusher_position_controller
+                joint_state_controller
+                "
+        />
+        
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+        <node name="deliverybot_hw_controller" pkg="deliverybot_control" type="deliverybot_hw_controller.py" />
+
+        <node name="dbot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model dbot -x $(arg x) -y $(arg y) -z $(arg z) -Y 1.5707 -J joint_door -1.5707"/>
+    </group>
+</launch>    

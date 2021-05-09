@@ -1,0 +1,3 @@
+<launch>
+    <node name="deliverybot_hw_gui" pkg="deliverybot_gui" type="deliverybot_hw_gui.py"></node>
+</launch>

@@ -1,0 +1,14 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+ 
+door_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: joint_door
+  pid: {p: 100.0, i: 0.01, d: 10.0}
+
+pusher_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: joint_pusher
+  pid: {p: 100.0, i: 0.01, d: 10.0}
+

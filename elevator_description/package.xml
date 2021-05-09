@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>elevator_description</name>
+    <version>1.0.0</version>
+    <description>The elevator_description package</description>
+
+    <maintainer email="asketch8@gmail.com">Ammaar Solkar</maintainer>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <license>TODO</license>
+</package>    

@@ -1,0 +1,4 @@
+<launch>
+    <arg name="location" />
+    <node name="map_saver_floor" pkg="map_server" type="map_saver" args="-f $(arg location)/floor" />
+</launch>

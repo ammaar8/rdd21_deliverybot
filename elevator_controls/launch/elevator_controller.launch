@@ -1,0 +1,19 @@
+<launch>
+	<rosparam file="$(find elevator_controls)/config/elevator_control.yaml" command="load" />
+
+	<node name="elevator_controller_spawn" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+	args= "
+		floor_position_controller
+		car_door_left_controller
+		car_door_right_controller
+		lobby_door_left_controller
+		lobby_door_right_controller
+		first_door_left_controller
+		first_door_right_controller
+		second_door_left_controller
+		second_door_right_controller
+		elevator_state_controller
+		" />
+	<node name="elevator_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" >
+	</node>
+</launch>

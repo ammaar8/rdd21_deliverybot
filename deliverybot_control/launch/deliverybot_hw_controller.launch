@@ -1,0 +1,6 @@
+<launch>
+    <arg name="namespace" default="''"/>
+    <node name="deliverybot_hw_controller" pkg="deliverybot_control" type="deliverybot_hw_controller.py"
+        respawn="false" output="screen" args="$(arg namespace)">
+    </node>
+</launch>

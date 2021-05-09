@@ -1,0 +1,44 @@
+robot_base_frame: dbot/base_link
+
+max_obstacle_height: 20.0
+robot_radius: 0.2 
+
+static_layer:
+  map_topic: /map
+  subscribe_to_updates: true
+
+obstacle_layer:
+  observation_sources: laser #depth
+
+  laser:
+    topic: /dbot/scan
+    sensor_frame: dbot/sensor_laser
+    observation_persistence: 0.0
+    expected_update_rate: 5.0
+    data_type: LaserScan
+    clearing: true
+    marking: true
+    max_obstacle_height: 20.0
+    min_obstacle_height: -20.0
+    obstacle_range: 4.0
+    raytrace_range: 6.0
+
+voxel_layer:
+  observation_sources: depth
+
+  depth:
+    topic: /dbot/kinect/depth/points
+    sensor_frame: dbot/kinect
+    observation_persistence: 2.0
+    expected_update_rate: 5.0
+    data_type: PointCloud2
+    clearing: true
+    marking: false
+    max_obstacle_height: 20.0
+    min_obstacle_height: -0.02
+    obstacle_range: 3.0
+    raytrace_range: 6.0
+
+inflated_layer:
+  inflation_radius: 4.0
+  cost_scaling_factor: 3.0

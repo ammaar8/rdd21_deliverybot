@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>elevator_controls</name>
+    <version>0.0.0</version>
+    <description>The elevator_controls package</description>
+
+    <maintainer email="asketch8@gmail.com">Ammaar Solkar</maintainer>
+
+    <license>TODO</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <depend>message_generation</depend>
+    <depend>message_runtime</depend>
+    <depend>controller_manager</depend>
+    <depend>joint_state_controller</depend>
+    <depend>robot_state_publisher</depend>
+    <depend>gazebo_ros</depend>
+    <depend>gazebo</depend>
+
+    <export>
+        <gazebo_ros gazebo_model_path="${prefix}/models"/>
+        <gazebo_ros gazebo_media_path="${prefix}/models"/>
+    </export>
+</package>

@@ -1,0 +1,6 @@
+<launch>
+
+    <include file="$(find deliverybot_navigation)/launch/amcl.launch" />
+    <include file="$(find deliverybot_navigation)/launch/move_base.launch" />
+
+</launch>

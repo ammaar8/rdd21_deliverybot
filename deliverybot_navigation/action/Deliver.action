@@ -1,0 +1,7 @@
+string building_name
+int32 floor
+int32 room
+---
+bool success
+---
+float64 percent_complete

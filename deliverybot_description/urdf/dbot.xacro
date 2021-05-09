@@ -1,0 +1,310 @@
+<robot name="DeliveryBot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find deliverybot_description)/urdf/dbot.gazebo"/>
+
+    <link name="base_link">
+    </link>
+
+    <joint name="base_link_to_base" type="fixed">
+        <parent link="base_link"/>
+        <child link="body" />
+        <origin xyz="0 0 0" rpy="0 0 1.5707" />
+    </joint>
+    
+    <link name="body">
+        <visual>
+            <origin xyz="-5.55112e-17 -0.00273569 -0.05" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/body.dae"/>
+            </geometry>
+            <material name="body_material">
+                <color rgba="0.768627 0.886275 0.952941 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-5.55112e-17 -0.00273569 -0.05" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/body.dae"/>
+            </geometry>
+            <material name="body_material">
+                <color rgba="0.768627 0.886275 0.952941 1.0"/>
+            </material>
+        </collision>
+        <inertial>
+            <origin xyz="7.95747e-17 0.0121391 0.137455" rpy="0 0 0"/>
+            <mass value="9.21638" />
+            <inertia ixx="0.266" ixy="-1.282e-16" ixz="-1.605e-16" iyy="0.281" iyz="-0.014" izz="0.162" />
+        </inertial>
+    </link>
+
+    <link name="left_wheel">
+        <visual>
+            <origin xyz="-0.075 -0.1 0.155" rpy="-1.5708 -1.5708 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/left_wheel.dae"/>
+            </geometry>
+            <material name="left_wheel_material">
+                <color rgba="0.498039 0.498039 0.498039 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.075 -0.1 0.155" rpy="-1.5708 -1.5708 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/left_wheel.dae"/>
+            </geometry>
+            <material name="left_wheel_material">
+                <color rgba="0.498039 0.498039 0.498039 1.0"/>
+            </material>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 -0.025" rpy="1.5707 0 0"/>
+            <mass value="1.65248" />
+            <inertia ixx="0.008" ixy="0" ixz="0" iyy="0.004" iyz="0" izz="0.004" />
+        </inertial>
+    </link>
+
+    <joint name="joint_left_wheel" type="continuous">
+        <origin xyz="0.155 0.0722643 0.05" rpy="0 -1.5708 0" /> <!-- rpy="-1.5708" -->
+        <parent link="body" />
+        <child link="left_wheel" />
+        <axis xyz="0 0 -1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <link name="right_wheel">
+        <visual>
+            <origin xyz="-0.075 -0.1 -0.155" rpy="-1.5708 -1.5708 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/right_wheel.dae"/>
+            </geometry>
+            <material name="left_wheel_material">
+                <color rgba="0.498039 0.498039 0.498039 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.075 -0.1 -0.155" rpy="-1.5708 -1.5708 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/right_wheel.dae"/>
+            </geometry>
+            <material name="right_wheel_material">
+                <color rgba="0.498039 0.498039 0.498039 1.0"/>
+            </material>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 -0.025" rpy="1.5707 0 0"/>
+            <mass value="1.65248" />
+            <inertia ixx="0.008" ixy="0" ixz="0" iyy="0.004" iyz="0" izz="0.004" />
+        </inertial>
+    </link>
+
+    <joint name="joint_right_wheel" type="continuous">
+        <origin xyz="-0.155 0.0722643 0.05" rpy="0 -1.5708 0" /> <!-- rpy="-1.5708" -->
+        <parent link="body" />
+        <child link="right_wheel" />
+        <axis xyz="0 0 -1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <link name="castor">
+        <visual>
+            <origin xyz="0 0.125 -0.025" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/castor.dae"/>
+            </geometry>
+            <material name="castor_material">
+                <color rgba="0.960784 0.835294 0.470588 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0.125 -0.025" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/castor.dae"/>
+            </geometry>
+            <material name="castor_material">
+                <color rgba="0.960784 0.835294 0.470588 1.0"/>
+            </material>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 3.46945e-18" rpy="0 0 0"/>
+            <mass value="0.0688532" />
+            <inertia ixx="1.72133e-05" ixy="0" ixz="0" iyy="1.72133e-05" iyz="0" izz="1.72133e-05" />
+        </inertial>
+    </link>
+
+    <joint name="joint_castor" type="fixed">
+        <origin xyz="-5.55112e-17 -0.127736 -0.025" rpy="0 0 0" />
+        <parent link="body" />
+        <child link="castor" />
+        <axis xyz="0 0 1"/>
+        <limit effort="10000000" velocity="20000" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <link name="door">
+        <visual>
+            <origin xyz="0.127 -0.205 -0.145" rpy="-1.5708 -1.5708 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/door.dae"/>
+            </geometry>
+            <material name="door_material">
+                <color rgba="0.796078 0.905882 0.745098 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.127 -0.205 -0.145" rpy="-1.5708 -1.5708 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/door.dae"/>
+            </geometry>
+            <material name="door_material">
+                <color rgba="0.796078 0.905882 0.745098 1.0"/>
+            </material>
+        </collision>
+        <inertial>
+            <origin xyz="-0.000258506 0.145116 -0.145" rpy="1.5707 0 1.5707"/>
+            <mass value="0.596718" />
+            <inertia ixx="0.00521211" ixy="0" ixz="2.98715e-05" iyy="0.00816722" iyz="0" izz="0.0129235" />
+        </inertial>
+    </link>
+
+    <joint name="joint_door" type="revolute">
+        <origin xyz="0.145 -0.129736 0.155" rpy="-3.14159 -1.5708 0" />
+        <parent link="body" />
+        <child link="door" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" lower="-1.5708" upper="0.523599"/>
+        <joint_properties friction="0.0"/>
+    </joint>
+
+<!-- Lidar -->
+    <link name="sensor_laser">
+        <visual>
+            <origin xyz="0 -0.125 0.56" rpy="3.14159 0 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/sensor_laser.dae"/>
+            </geometry>
+            <material name="sensor_laser_material">
+                <color rgba="0.34902 0.376471 0.4 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 -0.125 0.56" rpy="3.14159 0 0" />
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/sensor_laser.dae"/>
+            </geometry>
+            <material name="sensor_laser_material">
+                <color rgba="0.34902 0.376471 0.4 1.0"/>
+            </material>
+        </collision>
+        <inertial>
+            <origin xyz="3.75509e-19 0 -0.0125" rpy="0 0 0"/>
+            <mass value="0.0516399" />
+            <inertia ixx="1.07583e-05" ixy="0" ixz="0" iyy="1.07583e-05" iyz="0" izz="1.61375e-05" />
+        </inertial>
+    </link>
+
+    <joint name="joint_laser_sensor" type="fixed">
+        <origin xyz="-5.55112e-17 -0.127736 0.535" rpy="0 0 3.1412" />
+        <parent link="body" />
+        <child link="sensor_laser" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+<!-- Lidar -->
+
+<!-- Kinect -->
+    <link name="kinect">
+        <!-- <visual>
+            <geometry>
+                <box size="0.02 0.02 0.02"></box>
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.02 0.02 0.02"></box>
+            </geometry>
+        </collision>
+        Add Inertial Element -->
+    </link>
+
+    <joint name="joint_kinect" type="fixed">
+        <origin xyz="-5.55112e-17 -0.127736 0.55" rpy="0 0 -1.5707" />
+        <parent link="body"/>
+        <child link="kinect"/>
+    </joint>
+
+
+    <joint name="kinect_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+            <parent link="kinect"/>
+            <child link="kinect_frame_optical"/>
+    </joint>
+    <link name="kinect_frame_optical"/>
+<!-- Kinect -->
+
+<!-- Pusher -->
+    <link name="pusher">        
+        <visual name="visual">
+            <origin xyz="0 0 0" rpy = "0 0 0"/>
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/pusher.dae" />
+            </geometry>
+        </visual>
+        <collision name="collision">
+            <origin xyz="0 0 0" rpy = "0 0 0"/>
+            <geometry>
+                <mesh filename="package://deliverybot_description/urdf/meshes/pusher.dae" />
+            </geometry>
+        </collision>        
+        <inertial>
+            <origin xyz="-0.12 0 0.333" rpy="0 0 0" />
+            <mass value="0.2" />
+            <inertia ixx="0.002" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.001" />
+        </inertial>
+    </link>
+
+    <joint name="joint_pusher" type="prismatic">
+        <origin xyz="-0.12 0 -0.05" rpy="0 0 -1.5707" />
+        <parent link="base_link"/>
+        <child link="pusher" />
+        <axis xyz="0 1 0" />
+        <limit effort="1000" lower="0" upper="0.24" velocity="0.5"/>
+    </joint>
+<!-- Pusher -->
+
+
+<!-- Upper Camera -->
+  <joint name="upper_camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="-5.55112e-17 -0.127736 0.55" rpy="0 -0.2617 -1.5707" />
+    <parent link="body"/>
+    <child link="upper_camera_link"/>
+  </joint>
+
+  <link name="upper_camera_link" />
+<!-- Upper Camera -->
+
+<!-- Right Camera -->
+  <joint name="right_camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="-0.15 0 0.45" rpy="0 0 3.1415" />
+    <parent link="body"/>
+    <child link="right_camera_link"/>
+  </joint>
+
+  <link name="right_camera_link" />
+<!-- Right Camera -->
+
+<!-- Left Camera -->
+  <joint name="left_camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.15 0 0.45" rpy="0 0 0" />
+    <parent link="body"/>
+    <child link="left_camera_link"/>
+  </joint>
+
+  <link name="left_camera_link" />
+<!-- Left Camera -->
+
+</robot>
