@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import actionlib
 import deliverybot_navigation.msg
-import tkinter as tk
+import Tkinter as tk
 import rospy
 
 class Application(tk.Frame):

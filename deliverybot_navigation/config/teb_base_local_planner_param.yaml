@@ -11,7 +11,7 @@ TebLocalPlannerROS:
  global_plan_overwrite_orientation: True
  max_global_plan_lookahead_dist: 3.0
  feasibility_check_no_poses: 5
-    
+ occdist_scale: 0.1    
  # Robot
          
  max_vel_x: 0.4
