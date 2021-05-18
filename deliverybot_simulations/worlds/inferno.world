@@ -27,7 +27,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://inferno/inferno.obj</uri>
+              <uri>model://inferno/inferno.dae</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
