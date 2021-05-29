@@ -66,9 +66,5 @@
 
     <include file="$(find deliverybot_navigation)/launch/deliverybot_navigation.launch">
     </include>
-    <include file="$(find deliverybot_navigation)/launch/navigation_map_server.launch">
-    </include>
-    <node name="delivery_server" pkg="deliverybot_delivery" type="delivery_server.py"/>
-    <node name="delivery_client" pkg="deliverybot_delivery" type="delivery_client.py"/>
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find deliverybot_description)/rviz/rviz.rviz"/>
 </launch>    

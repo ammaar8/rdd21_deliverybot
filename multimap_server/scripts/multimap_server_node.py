@@ -3,7 +3,7 @@
 import rospy
 import subprocess
 import signal
-from deliverybot_navigation.srv import MapFilePath
+from multimap_server.srv import MapFilePath
 
 map_server = None
 
@@ -17,6 +17,6 @@ def set_map(req):
 
 
 if __name__ == "__main__":
-    rospy.init_node("navigation_map_server")
-    rospy.Service('load_map', MapFilePath, set_map)
+    rospy.init_node("multimap_server")
+    rospy.Service('/multimap_server/load_map', MapFilePath, set_map)
     rospy.spin()

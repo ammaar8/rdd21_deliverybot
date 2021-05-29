@@ -12,11 +12,6 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-add_service_files(
-  FILES
-  MapFilePath.srv
-)
-
 add_action_files(
   DIRECTORY action
   FILES Deliver.action
@@ -39,5 +34,6 @@ include_directories(
 
 catkin_install_python(PROGRAMS
   scripts/navigation_map_server.py
+  scripts/send_goal.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
