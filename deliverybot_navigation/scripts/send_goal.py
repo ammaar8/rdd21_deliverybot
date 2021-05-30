@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# license removed for brevity
 
 import rospy
 import actionlib
@@ -10,7 +9,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 def movebase_client(x=0, y=0, a=0):
 
-	client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+	client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
 	client.wait_for_server()
 
 	goal = MoveBaseGoal()
