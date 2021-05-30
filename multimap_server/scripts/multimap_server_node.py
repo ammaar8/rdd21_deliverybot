@@ -19,4 +19,5 @@ def set_map(req):
 if __name__ == "__main__":
     rospy.init_node("multimap_server")
     rospy.Service('/multimap_server/load_map', MapFilePath, set_map)
+    rospy.loginfo("Multimap server started.")
     rospy.spin()

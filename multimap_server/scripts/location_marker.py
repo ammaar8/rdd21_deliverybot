@@ -20,10 +20,17 @@ class LocationMarker(tk.Frame):
         self.create_widgets()
 
     def save_yaml(self):
+        '''
+        Save contents of map to yaml file
+        '''
         with open(os.path.abspath(self.file_path), 'w') as f:
             yaml.dump(self.map, f)
 
     def mark_location(self, location_name):
+        '''
+        Assign location_name with x, y, theta to map using lookup_transform between map and dbot/base_link.
+        Save value to yaml file.        
+        '''
         trans = self.tfBuffer.lookup_transform(
             'map',
             'dbot/base_link',
@@ -52,11 +59,17 @@ class LocationMarker(tk.Frame):
         self.save_yaml()
 
     def load_map(self, file_path):
+        '''
+        Set map(dictionary) using values from map file
+        '''
         self.file_path = file_path
         with open(os.path.abspath(file_path), 'r') as f:
             self.map = yaml.safe_load(f)
 
     def create_widgets(self):
+        '''
+        Code for creating widgets
+        '''
         self.var_location_name = tk.StringVar()
         frame = tk.Frame(self)
         frame.pack(side="top", expand=True, fill="both")
@@ -67,10 +80,10 @@ class LocationMarker(tk.Frame):
 
         location_label = tk.Label(frame, text="Name")
         location_label.grid(column=0, row=0, sticky="ew")
-        
+
         location_entry = tk.Entry(frame, bd=2, textvariable=self.var_location_name)
         location_entry.grid(column=1, row=0, sticky="ew")
-        
+
         submit_btn = tk.Button(frame, text="Mark", command=mark_location_helper)
         submit_btn.grid(column=2, row=0, sticky="ew")
 

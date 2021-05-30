@@ -40,16 +40,15 @@ def movebase_client(x=0, y=0, a=0):
 		return client.get_result()
 
 if __name__ == '__main__':
-	try:
-		rospy.init_node('movebase_client_py')
-		goal = rospy.get_param('~goal')
+    rospy.init_node('movebase_client_py')
+    goal = rospy.get_param("~goal")
 
-		x = goal["x"]
-		y = goal["y"]
-		a = goal["a"]
-
-		result = movebase_client(x, y, a)
-		if result:
-			rospy.loginfo("Goal execution done!")
-	except rospy.ROSInterruptException:
-		rospy.loginfo("Goal execution finished.")
+    x = goal["x"]
+    y = goal["y"]
+    a = goal["a"]
+    try:
+        result = movebase_client(x, y, a)
+        if result:
+            rospy.loginfo("Goal execution done!")
+    except rospy.ROSInterruptException:
+        rospy.loginfo("Goal execution finished.")
